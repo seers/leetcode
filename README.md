@@ -1,1 +1,1 @@
-# leetcode in Goloang
+# solve leetcode problem in Goloang
