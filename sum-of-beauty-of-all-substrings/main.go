@@ -9,6 +9,9 @@ import (
 func main() {
 	s := "aabcb"
 	fmt.Println(beautySum(s))
+
+	s = "aabcbaa"
+	fmt.Println(beautySum(s))
 }
 
 // 用切片保存，排序后最大值减去最小值
