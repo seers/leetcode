@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 )
 
@@ -17,12 +18,39 @@ func main() {
 	//Charlie
 }
 
+type sc struct {
+	sender string
+	count  int
+}
+type scs []sc
+
+func (s scs) Len() int {
+	return len(s)
+}
+
+func (s scs) Less(i, j int) bool {
+	if s[i].count == s[j].count {
+		return s[i].sender < s[j].sender
+	}
+	return s[i].count < s[j].count
+}
+
+func (s scs) Swap(i, j int) {
+	s[i], s[j] = s[j], s[i]
+}
+
 // 构造姓名，发言次数map
 func largestWordCount(messages []string, senders []string) string {
-	namecount := make(map[string]int)
+	sendercount := make(map[string]int)
 	for k, v := range messages {
-		namecount[senders[k]] += len(strings.Fields(v))
+		sendercount[senders[k]] += len(strings.Fields(v))
 	}
-	fmt.Print(namecount)
-	return ""
+	scs := scs{}
+	for k, v := range sendercount {
+		scs = append(scs, sc{sender: k, count: v})
+	}
+
+	sort.Sort(scs)
+	return scs[len(scs)-1].sender
+
 }
